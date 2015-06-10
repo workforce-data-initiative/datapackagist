@@ -21,9 +21,9 @@
 
 <body>
 
-  <!--[if lt IE 8]>
-    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-  <![endif]-->
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
 
 <div class="fixed-ok-panel">
   <div id="ok-panel" class="closed">
@@ -74,10 +74,10 @@
   <div class="row">
     <div class="container">
 
-      <div class="col-md-7">
+      <div class="col-md-7" id="registry-list">
         <div class="form-group">
           <label id="select-profile" class="control-label">Select Profile</label>
-          <select id="registry-list" class="form-control"></select>
+          <select data-id="list-container" class="form-control list-container"></select>
         </div>
       </div>
 
@@ -93,27 +93,38 @@
         </div>
       </div>
 
-      <div class="col-md-7">
-        <div id="form-editor"></div>
-      </div>
+      <div class="container" id="descriptor">
+        <div data-id="form-container" class="col-md-7"></div>
 
-      <div class="col-md-5">
-        <pre><code id="json-code" class="json"></code></pre>
+        <div class="col-md-5">
+          <pre><code id="json-code" class="json"></code></pre>
+        </div>
+
+        <div class="col-md-7" id="validate-buttons">
+
+            <button type="button" class="btn btn-sm btn-info">Validate Schema</button>
+            <button type="button" id="validate-resources" class="btn btn-sm btn-info">Validate Resources</button>
+
+        </div>
       </div>
 
     </div>
-
-    <div class="container" id="validate-buttons">
-
-      <div class="col-md-7">
-        <button type="button" class="btn btn-sm btn-info">Validate Schema</button>
-        <button type="button" class="btn btn-sm btn-info">Validate Resources</button>
-      </div>
-
-    </div>
-
   </div>
   <!-- end main-->
+
+  <!-- validation results-->
+  <div class="row">
+    <div id="validation-result" class="container">
+      <div class="col-md-10">
+        <a href="" data-id="back">Back to the form</a>
+      </div>
+
+      <div data-id="tabs" class="col-md-10 tabs"></div>
+      <div data-id="list-container" class="col-md-10"></div>
+    </div>
+  </div>
+  <!-- end validation results-->
+
 
   <!-- start footer -->
   <footer class="site-footer">
