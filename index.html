@@ -16,6 +16,7 @@
   <link rel="stylesheet" type="text/css" href="https://rawgit.com/okfn/app-theme/gh-pages/css/main.min.css" />
   <link rel="stylesheet" href="//okfnlabs.org/ok-panel/assets/css/frontend.css"/>
   <link rel="stylesheet" type="text/css" href="app.min.css" />
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
 </head>
 
@@ -74,7 +75,7 @@
   <div class="row">
     <div class="container">
 
-      <div class="col-md-7" id="registry-list">
+      <div class="col-md-7 registry-list-container" id="registry-list">
         <div class="form-group">
           <label id="select-profile" class="control-label">Select Profile</label>
           <select data-id="list-container" class="form-control list-container"></select>
@@ -82,21 +83,21 @@
       </div>
 
       <div class="col-md-5">
-        <div id="upload-data-package">
-          <a id="download-data-package" href="" download="datapackage.json" target="_blank" class="btn btn-sm btn-info">Download data package</a>
+        <div id="upload-data-package" class="pull-right">
+          <a id="download-data-package" href="" download="datapackage.json" target="_blank" class="disabled btn btn-info">Download</a>
 
           <div class="upload-btn">
             <input data-id="input" type="file" accept="application/json" />
-            <button type="button" class="btn btn-sm btn-success upload-btn__txt">Upload</button>
+            <button type="button" class="btn btn-success upload-btn__txt">Upload</button>
           </div>
-          <div data-id="error"></div>
+          <div id="error-list" class="error-list"></div>
         </div>
       </div>
 
       <div class="container" id="descriptor">
         <div data-id="form-container" class="col-md-7"></div>
 
-        <div class="col-md-5">
+        <div class="json-code-container col-md-5">
           <pre><code id="json-code" class="json"></code></pre>
         </div>
 
