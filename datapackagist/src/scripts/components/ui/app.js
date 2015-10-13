@@ -1,5 +1,5 @@
 var backbone = require('backbone');
-var BigbangView = require('./components/ui/bigbang');
+var BigbangView = require('./bigbang');
 var Router = require('./router');
 
 

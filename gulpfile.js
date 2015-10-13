@@ -36,7 +36,7 @@ var frontendDependencies = _.chain(require('./package.json').dependencies)
 
 var bundler = browserify({
   entries: [
-      scriptsDir + '/app.js',
+      scriptsDir + '/components/ui/app.js',
       // glob(scriptsDir + '/components/*.js')
   ],
   transform: ['browserify-handlebars'],
