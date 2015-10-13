@@ -42,6 +42,12 @@ module.exports = dialogs.BaseModalView.extend({
       window.APP.layout.uploadDialog.deactivate();
       window.APP.layout.splashScreen.activate();
 
+      // Allow some callers to participate in the whole process
+      if(this.callbacks.submit) {
+        this.callbacks.submit(E.currentTarget);
+        return true;
+      }
+
       FileAPI.readAsText(FileAPI.getFiles(E.currentTarget)[0], (function (EV) {
         if(EV.type === 'load')
           this.callbacks.data(EV.target.name, EV.result);

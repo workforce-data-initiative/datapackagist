@@ -31,28 +31,28 @@ DataUploadView = backbone.BaseView.extend({
         )
 
         .setCallbacks({
-          data: (function(name, data) {
-            csv.parse(_.first(data.split('\n'), config.maxCSVRows).join('\n'), (function(E, D) {
-              // Hide loading splash
-              window.APP.layout.splashScreen.activate(false);
+          submit: (function(fileInput) {
+            request.post('/upload-resource-file')
+              .accept('json')
+              .attach('resource', fileInput.files[0])
 
-              var editor = window.APP.layout.descriptorEdit.layout.form.getEditor('root.resources');
+              .then(function(R) {
+                var file = fileInput.files[0];
+                var editor = window.APP.layout.descriptorEdit.layout.form.getEditor('root.resources');
+                var rowValue = {name: file.name, path: file.name};
 
-              var rowValue = {
-                name: _.last(name.split('/')).toLowerCase().replace(/\.[^.]+$|[^a-z^\-^\d^_^\.]+/g, ''),
-                path: name
-              };
+                // Hide loading splash
+                window.APP.layout.splashScreen.activate(false);
 
-              if(E)
-                return window.APP.layout.notificationDialog
-                  .setMessage('CSV is invalid')
-                  .activate();
+                if(!R.body.schema && R.body.parseError)
+                  return window.APP.layout.notificationDialog
+                    .setMessage('CSV is invalid')
+                    .activate();
 
-              rowValue.schema = jtsInfer(D[0], _.rest(D));
-              editor.add(rowValue, {schema: schema, data: data});
-              window.APP.layout.descriptorEdit.layout.form.validateResources();
-              window.APP.layout.descriptorEdit.populateTitlesFromNames();
-            }).bind(this));
+                rowValue.schema = R.body.schema;
+                editor.add(rowValue, _.pick(R.body, 'schema', 'data'));
+                window.APP.layout.descriptorEdit.populateTitlesFromNames();
+              });
           }).bind(this)
         })
 
