@@ -43,8 +43,8 @@ module.exports = dialogs.BaseModalView.extend({
       window.APP.layout.splashScreen.activate();
 
       // Allow some callers to participate in the whole process
-      if(this.callbacks.submit) {
-        this.callbacks.submit({file: E.currentTarget.files[0]});
+      if(this.callbacks['submit-file']) {
+        this.callbacks['submit-file']({file: E.currentTarget.files[0]});
         return true;
       }
 
@@ -75,6 +75,11 @@ module.exports = dialogs.BaseModalView.extend({
 
     window.APP.layout.uploadDialog.deactivate();
     window.APP.layout.splashScreen.activate();
+
+    if(this.callbacks['submit-url']) {
+      this.callbacks['submit-url'](url);
+      return true;
+    }
 
     request.get(url).then((function(RES) {
       window.APP.layout.splashScreen.deactivate();

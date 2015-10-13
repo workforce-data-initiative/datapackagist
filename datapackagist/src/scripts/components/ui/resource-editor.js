@@ -27,7 +27,7 @@ jsonEditor.JSONEditorView.defaults.editors.resources = JSONEditor.defaults.edito
       var url = _.result(row.editors.url, 'getValue');
 
 
-      if(row.dataSource) {
+      if(!_.isEmpty(row.dataSource)) {
         RS(row.dataSource);
         return true;
       }
@@ -40,20 +40,14 @@ jsonEditor.JSONEditorView.defaults.editors.resources = JSONEditor.defaults.edito
 
         _.last(url.split('.')).toLowerCase() === 'csv'
       ))
-        return request.get(config.corsProxyURL(url)).then(function(RES) {
-          // Need schema
-          return (new Promise(function(RS, RJ) {
-            csv.parse(RES.text, function(E, D) {
-              if(E) {
-                RJ(E);
-                return false;
-              }
+        return request.get('/upload-resource-file/' + url)
+          .accept('json')
 
-              RS({data: RES.text, schema: jtsInfer(D[0], _.rest(D))});
-            });
-          }))
-            .then((function(DS) { this.dataSource = DS; return DS; }).bind(this));
-        });
+          .then(function(R) {
+            row.setValue(_.extend(row.getValue(), {schema: R.body.schema}));
+            row.dataSource = R.body;
+            RS(R.body);
+          });
 
       // TODO return correct data when there is workaround for file paths
       else if(!url)

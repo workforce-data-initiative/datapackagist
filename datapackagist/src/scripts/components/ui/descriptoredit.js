@@ -22,6 +22,20 @@ var titleize = require('i')().titleize;
 
 // Upload data file and populate .resource array with item
 DataUploadView = backbone.BaseView.extend({
+  addRow: function(name, value) {
+    var dataSource = value.dataSource;
+    var editor = window.APP.layout.descriptorEdit.layout.form.getEditor('root.resources');
+    var rowValue = {name: name, path: name, url: value.url};
+
+
+    if(dataSource)
+      rowValue.schema = dataSource.schema;
+
+    editor.add(rowValue, dataSource || {});
+    window.APP.layout.descriptorEdit.populateTitlesFromNames();
+    return this;  
+  },
+
   events: {
     'click [data-id=upload-data-file]': function() {
       window.APP.layout.uploadDialog
@@ -31,28 +45,26 @@ DataUploadView = backbone.BaseView.extend({
         )
 
         .setCallbacks({
-          submit: (function(source) {
-            request.post(_.compact(['/upload-resource-file', source.url]).join('/'))
+          'submit-file': (function(file) {
+            request.post('/upload-resource-file')
               .accept('json')
-              .attach('resource', source.file)
+              .attach('resource', file)
 
-              .then(function(R) {
-                var file = source.file || {name: _.last(source.url.split('/'))};
-                var editor = window.APP.layout.descriptorEdit.layout.form.getEditor('root.resources');
-                var rowValue = {name: file.name, path: file.name};
-
-                // Hide loading splash
+              .then((function(R) {
                 window.APP.layout.splashScreen.activate(false);
+                this.addRow(file.name, {dataSource: R.body});
+              }).bind(this));
+          }).bind(this),
 
-                if(!R.body.schema && R.body.parseError)
-                  return window.APP.layout.notificationDialog
-                    .setMessage('CSV is invalid')
-                    .activate();
+          // Reuse resource editor method when upload resource from URL
+          'submit-url': (function(url) {
+            var resourcesEditor = window.APP.layout.descriptorEdit.layout.form.getEditor('root.resources');
 
-                rowValue.schema = R.body.schema;
-                editor.add(rowValue, R.body);
-                window.APP.layout.descriptorEdit.populateTitlesFromNames();
-              });
+
+            this.addRow(_.last(url.split('/')), {url: url});
+
+            resourcesEditor.getDataSource(resourcesEditor.rows.length - 1)
+              .then(function() { window.APP.layout.splashScreen.activate(false); });
           }).bind(this)
         })
 
