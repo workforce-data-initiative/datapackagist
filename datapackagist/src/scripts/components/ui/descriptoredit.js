@@ -50,7 +50,7 @@ DataUploadView = backbone.BaseView.extend({
                     .activate();
 
                 rowValue.schema = R.body.schema;
-                editor.add(rowValue, _.pick(R.body, 'schema', 'data'));
+                editor.add(rowValue, R.body);
                 window.APP.layout.descriptorEdit.populateTitlesFromNames();
               });
           }).bind(this)
