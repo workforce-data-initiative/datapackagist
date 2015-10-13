@@ -4,7 +4,7 @@ var backboneBase = require('backbone-base');
 var validator = require('datapackage-validate');
 
 
-// Upload datapackage
+// Upload datapackage when Upload button clicked
 module.exports = backbone.BaseView.extend({
   events: {
     'click': function() {
