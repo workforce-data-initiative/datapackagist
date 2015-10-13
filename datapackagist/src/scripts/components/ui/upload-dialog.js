@@ -44,7 +44,7 @@ module.exports = dialogs.BaseModalView.extend({
 
       // Allow some callers to participate in the whole process
       if(this.callbacks.submit) {
-        this.callbacks.submit(E.currentTarget);
+        this.callbacks.submit({file: E.currentTarget.files[0]});
         return true;
       }
 

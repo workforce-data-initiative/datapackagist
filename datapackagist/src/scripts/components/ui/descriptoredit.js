@@ -31,13 +31,13 @@ DataUploadView = backbone.BaseView.extend({
         )
 
         .setCallbacks({
-          submit: (function(fileInput) {
-            request.post('/upload-resource-file')
+          submit: (function(source) {
+            request.post(_.compact(['/upload-resource-file', source.url]).join('/'))
               .accept('json')
-              .attach('resource', fileInput.files[0])
+              .attach('resource', source.file)
 
               .then(function(R) {
-                var file = fileInput.files[0];
+                var file = source.file || {name: _.last(source.url.split('/'))};
                 var editor = window.APP.layout.descriptorEdit.layout.form.getEditor('root.resources');
                 var rowValue = {name: file.name, path: file.name};
 
