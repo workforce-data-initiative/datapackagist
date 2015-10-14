@@ -1,0 +1,45 @@
+{
+    "report": {
+        "meta": {
+            "bad_column_count": 0,
+            "bad_row_count": 0,
+            "columns": [
+                {
+                    "bad_type_percent": 0,
+                    "index": 0,
+                    "name": "id"
+                },
+                {
+                    "bad_type_percent": 0,
+                    "index": 1,
+                    "name": "title"
+                },
+                {
+                    "bad_type_percent": 0,
+                    "index": 2,
+                    "name": "schema"
+                },
+                {
+                    "bad_type_percent": 0,
+                    "index": 3,
+                    "name": "specification"
+                }
+            ],
+            "header_index": 0,
+            "headers": [
+                "id",
+                "title",
+                "schema",
+                "specification"
+            ],
+            "name": "Pipeline",
+            "row_count": 1
+        },
+        "results": []
+    },
+    "sources": {
+        "data_url": null,
+        "schema_url": null
+    },
+    "success": true
+}
