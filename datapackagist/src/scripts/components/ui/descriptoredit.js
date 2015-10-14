@@ -22,22 +22,22 @@ var titleize = require('i')().titleize;
 
 // Upload data file and populate .resource array with item
 DataUploadView = backbone.BaseView.extend({
-  addRow: function(name, value) {
-    var dataSource = value.dataSource;
-    var editor = window.APP.layout.descriptorEdit.layout.form.getEditor('root.resources');
-    var rowValue = {name: name, path: name, url: value.url};
+  addRow: function(name) {
+    var descriptorEdit = window.APP.layout.descriptorEdit;
 
 
-    if(dataSource)
-      rowValue.schema = dataSource.schema;
-
-    editor.add(rowValue, dataSource || {});
-    window.APP.layout.descriptorEdit.populateTitlesFromNames();
+    descriptorEdit.layout.form.getEditor('root.resources').add({name: name, path: name});
+    descriptorEdit.populateTitlesFromNames();
     return this;  
   },
 
+  hideLoading: function() { window.APP.layout.splashScreen.activate(false); return this; },
+
   events: {
     'click [data-id=upload-data-file]': function() {
+      var editor = window.APP.layout.descriptorEdit.layout.form.getEditor('root.resources');
+
+
       window.APP.layout.uploadDialog
         .setMessage(
           'Select resource file (CSV) from your local drive or enter URL ' +
@@ -46,25 +46,14 @@ DataUploadView = backbone.BaseView.extend({
 
         .setCallbacks({
           'submit-file': (function(file) {
-            request.post('/upload-resource-file')
-              .accept('json')
-              .attach('resource', file)
-
-              .then((function(R) {
-                window.APP.layout.splashScreen.activate(false);
-                this.addRow(file.name, {dataSource: R.body});
-              }).bind(this));
+            this.addRow(file.name);
+            editor.getDataSource(editor.rows.length - 1, {blob: file}).then(this.hideLoading);
           }).bind(this),
 
           // Reuse resource editor method when upload resource from URL
           'submit-url': (function(url) {
-            var resourcesEditor = window.APP.layout.descriptorEdit.layout.form.getEditor('root.resources');
-
-
-            this.addRow(_.last(url.split('/')), {url: url});
-
-            resourcesEditor.getDataSource(resourcesEditor.rows.length - 1)
-              .then(function() { window.APP.layout.splashScreen.activate(false); });
+            this.addRow(_.last(url.split('/')));
+            editor.getDataSource(editor.rows.length - 1, {url: url}).then(this.hideLoading);
           }).bind(this)
         })
 

@@ -21,10 +21,12 @@ jsonEditor.JSONEditorView.defaults.editors.resources = JSONEditor.defaults.edito
     _.last(this.rows).dataSource = dataSource;
   },
 
-  getDataSource: function(rowIndex) {
+  getDataSource: function(rowIndex, from) {
+    var row = this.rows[rowIndex];
+
+
     return new Promise((function(RS, RJ) {
-      var row = this.rows[rowIndex];
-      var url = _.result(row.editors.url, 'getValue');
+      var url = _.result(row.editors.url, 'getValue') || _.result(from, 'url');
 
 
       if(!_.isEmpty(row.dataSource)) {
@@ -42,12 +44,14 @@ jsonEditor.JSONEditorView.defaults.editors.resources = JSONEditor.defaults.edito
       ))
         return request.get('/upload-resource-file/' + url)
           .accept('json')
+          .then(function(R) { RS(R.body); });
 
-          .then(function(R) {
-            row.setValue(_.extend(row.getValue(), {schema: R.body.schema}));
-            row.dataSource = R.body;
-            RS(R.body);
-          });
+      // Upload resource using file input
+      else if(_.result(from, 'blob'))
+        return request.post('/upload-resource-file')
+          .accept('json')
+          .attach('resource', from.blob)
+          .then(function(R) { RS(R.body); });
 
       // TODO return correct data when there is workaround for file paths
       else if(!url)
@@ -55,7 +59,8 @@ jsonEditor.JSONEditorView.defaults.editors.resources = JSONEditor.defaults.edito
 
       else
         RJ(new Error('Resource URL is broken or resource has wrong file type (should be CSV): ' + url));
-    }).bind(this));
+    }).bind(this))
+      .then((function(DS) { this.setDataSource(row, DS); return DS; }).bind(this));
   },
 
   init: function() {
@@ -66,6 +71,12 @@ jsonEditor.JSONEditorView.defaults.editors.resources = JSONEditor.defaults.edito
       if(this.jsoneditor.options.dataSources)
         _.each(this.rows, function(R, I) { R.dataSource = this.dataSources[I]; }, this.jsoneditor.options);
     }).bind(this))
+  },
+
+  setDataSource: function(row, dataSource) {
+    row.setValue(_.extend(row.getValue(), {schema: dataSource.schema}));
+    row.dataSource = dataSource;
+    return this;
   }
 });
 
