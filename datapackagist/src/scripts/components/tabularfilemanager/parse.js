@@ -70,7 +70,10 @@ module.exports = function(file, options) {
               message: 'We encountered some problems with this file. Click ' +
                 'here for a breakdown of the issues.',
 
-              verbose: result.getGroupedByRows()
+              verbose: {
+                headers: result.getHeaders(),
+                results: result.getGroupedByRows()
+              }
             }
           }, !noSchemaInfer ? {schema: isValid && infer(data)} : {}));
 

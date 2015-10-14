@@ -78,8 +78,8 @@ module.exports = {
           // Conditional promises
           return (function() {
             // Resource was downloaded by user
-            if(R.dataSource)
-              return goodTables.run(R.dataSource.data, JSON.stringify(R.dataSource.schema));
+            if(!_.isEmpty(R.dataSource))
+              return new Promise(function(RS, RJ) { RS(R.dataSource.parseError.verbose); });
 
             // Default fall back
             return new Promise(function(RS, RJ) { RS(false); });
@@ -93,13 +93,13 @@ module.exports = {
               that.layout.list.collection
 
                 // Grouped report has complicated structure
-                .add(M.getGroupedByRows().map(function(SR) { return _.extend(_.values(SR)[0], {
-                  headers: M.getHeaders(),
+                .add(M.results.map(function(SR) { return _.extend(_.values(SR)[0], {
+                  headers: M.headers,
                   resource_id: R.key
                 }); }));
 
               // Navigate between resources in validation results
-              if(!_.isEmpty(M.getGroupedByRows()))
+              if(!_.isEmpty(M))
                 that.layout.tabs.add(new backbone.Model({
                   title: R.getValue().path,
 
