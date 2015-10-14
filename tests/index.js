@@ -258,27 +258,20 @@ describe('DataPackagist core', function() {
       // ensure that when a user validates one or many valid resources,
       // the resource validation view is shown with a success result
       browser.visit('/', function() {
-        var anotherSchema = jtsInfer(['name', 'age', 'title'], [['John', '33', 'Mr.'], ['Jane', '21', 'Mrs.']]);
         var editor = browser.window.APP.layout.descriptorEdit.layout.form.getEditor('root.resources');
-        var schema = jtsInfer(['name', 'age'], [['John', '33']]);
 
 
-        // Don't know how to simulate file upload
+        nock('http://goodtables.okfnlabs.org').post('/api/run').reply(
+          200,
+          fs.readFileSync(path.join(dataDir, 'goodtables-valid-reply.json')),
+          {'access-control-allow-origin': '*'}
+        );
+
         editor.rows[0].setValue({
           name: 'test',
-          path: 'test.csv',
-          schema: schema
+          url: 'https://rawgit.com/dataprotocols/registry/master/registry.csv'
         }, true);
 
-        editor.rows[0].dataSource = {schema: schema, data: 'name,age\nJohn,33'};
-
-        editor.addRow({
-          name: 'test - 1',
-          path: 'another.csv',
-          schema: anotherSchema
-        }, true);
-
-        editor.rows[1].dataSource = {schema: anotherSchema, data: 'name,age,title\nJohn,33,Mr.\nJane,21,Mrs.'};
         browser.click('#validate-resources');
 
         browser.wait({duration: '5s', element: '#validation-result:not([hidden])'}).then(function() {
