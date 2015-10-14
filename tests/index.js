@@ -320,21 +320,6 @@ describe('DataPackagist core', function() {
       });
     });
 
-    it('shows modal error message when uploading malformed/broken csv as resource', function(done) {
-      browser.visit('/', function() {
-        var descriptorEdit = browser.window.APP.layout.descriptorEdit;
-
-
-        descriptorEdit.layout.uploadData.events['click [data-id=upload-data-file]'].call(descriptorEdit);
-        browser.window.APP.layout.uploadDialog.callbacks.data('datapackage.json', '[[["ограничения","restraints","ogranicheniya",""]]…rue,false]],[[0,10]],"restraints"]],,,[["en"]],3]');
-
-        browser.wait({duration: '5s', element: '#notification-dialog:not([hidden])'}).then(function() {
-          assert(!browser.window.$('#notification-dialog').prop('hidden'));
-          done();
-        });
-      });
-    });
-
     it('shows modal error message when uploading malformed but not broken json', function(done) {
       browser.visit('/', function() {
         var uploadDatapackage = browser.window.APP.layout.uploadDatapackage;
