@@ -271,16 +271,10 @@ describe('DataPackagist core', function() {
         }, true);
 
         editor.rows[0].dataSource = {schema: schema, data: 'name,age\nJohn,33'};
-
-        editor.addRow({
-          name: 'test',
-          url: 'https://rawgit.com/dataprotocols/registry/master/registry.csv'
-        }, true);
-
         browser.click('#validate-resources');
 
         browser.wait({duration: '5s', element: '#validation-result:not([hidden])'}).then(function() {
-          assert(!browser.window.$('#ok-message').prop('hidden'));
+          browser.assert.element('#ok-message:not([hidden])');
           done();
         });
       });
