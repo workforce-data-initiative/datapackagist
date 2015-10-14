@@ -199,7 +199,6 @@ describe('DataPackagist core', function() {
         done();
       });
     });
-
   });
 
   describe('Ensure essential resource file interactions', function() {
@@ -294,29 +293,23 @@ describe('DataPackagist core', function() {
       // the resource validation view is shown with error results
       browser.visit('/', function() {
         var editor = browser.window.APP.layout.descriptorEdit.layout.form.getEditor('root.resources');
-        var schema = jtsInfer(['name', 'age'], [['John', '33']]);
 
 
-        // Don't know how to simulate file upload
+        nock('http://goodtables.okfnlabs.org').post('/api/run').reply(
+          200,
+          fs.readFileSync(path.join(dataDir, 'goodtables-invalid-reply.json')),
+          {'access-control-allow-origin': '*'}
+        );
+
         editor.rows[0].setValue({
           name: 'test',
-          path: 'test.csv',
-          schema: schema
+          url: 'https://rawgit.com/dataprotocols/registry/master/registry.csv'
         }, true);
 
-        editor.rows[0].dataSource = {schema: schema, data: 'name,age\nJohn,33'};
-
-        editor.addRow({
-          name: 'test-invalid',
-          path: 'test-invalid.csv',
-          schema: schema
-        }, true);
-
-        editor.rows[1].dataSource = {schema: schema, data: 'name,age\nJane,55,invalid'};
         browser.click('#validate-resources');
 
         browser.wait({duration: '5s', element: '#validation-result:not([hidden])'}).then(function() {
-          assert(browser.window.$('#ok-message').prop('hidden'));
+          assert(browser.window.$('#ok-message').prop('hidden'), 'OK message shown for invalid data');
           browser.assert.elements('#validation-result [data-id=errors-list] .result', 1);
           done();
         });
