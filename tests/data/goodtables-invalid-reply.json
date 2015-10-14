@@ -1,0 +1,57 @@
+{
+    "report": {
+        "meta": {
+            "bad_column_count": 0,
+            "bad_row_count": 1,
+            "columns": [
+                {
+                    "bad_type_percent": 0,
+                    "index": 0,
+                    "name": "name"
+                },
+                {
+                    "bad_type_percent": 0,
+                    "index": 1,
+                    "name": "age"
+                }
+            ],
+            "header_index": 0,
+            "headers": [
+                "name",
+                "age"
+            ],
+            "name": "Pipeline",
+            "row_count": 1
+        },
+        "results": [
+            {
+                "0": {
+                    "result_context": [
+                        "John",
+                        "33",
+                        "Mr."
+                    ],
+                    "results": [
+                        {
+                            "column_index": null,
+                            "column_name": "",
+                            "processor": "structure",
+                            "result_category": "row",
+                            "result_id": "structure_003",
+                            "result_level": "error",
+                            "result_message": "Row 0 is defective: the dimensions are incorrect compared to headers.",
+                            "result_name": "Defective Row",
+                            "row_name": ""
+                        }
+                    ],
+                    "row_index": 0
+                }
+            }
+        ]
+    },
+    "sources": {
+        "data_url": null,
+        "schema_url": null
+    },
+    "success": false
+}
