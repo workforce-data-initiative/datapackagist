@@ -1,4 +1,5 @@
 var _ = require('lodash');
+var fromString = require('./from-string');
 var Promise = require('bluebird');
 var request = require('http');
 
@@ -17,7 +18,7 @@ module.exports = function(url, options) {
 
   this.emit('upload-started');
 
-  return new Promise(function(resolve, reject) {
+  return (new Promise(function(resolve, reject) {
     request.get({
       hostname: parsedURL.hostname,
       method: 'GET',
@@ -40,19 +41,11 @@ module.exports = function(url, options) {
 
         data += chunk;
 
-        if(!hasSizeLimit)
-          return;
-
-        if(byteLen(data, encoding) <= options.maxSize)
+        if(!hasSizeLimit || byteLen(data, encoding) <= options.maxSize)
           return;
 
         // If data exceed bytes limit then cut it. Remove last line as it can be incomplete.
-        data = _.initial(
-          (new Buffer(data, encoding))
-            .slice(0, options.maxSize)
-            .toString()
-            .split('\n')
-        ).join('\n')
+        resolve(data, encoding);
       });
 
       response.on('end', function() {
@@ -61,8 +54,13 @@ module.exports = function(url, options) {
         if(status !== 200)
           return reject('Got bad response status from ' + url + ': ' + status);
 
-        resolve({data: data, size: byteLen(data, encoding)});
+        return resolve(data, encoding);
       });
     });
+  })).then(function(string, encoding) {
+    return fromString(string, _.extend(options, {
+      encoding: encoding,
+      noEvents: true
+    }));
   });
 }
