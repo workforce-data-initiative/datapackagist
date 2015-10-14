@@ -1,18 +1,15 @@
 var $ = require('jquery');
 var _ = require('underscore');
 var Browser = require('zombie');
-var datapackageProfileJSON;
 var app = require('../datapackagist/app');
 var assert = require('chai').assert;
 var config = require('../datapackagist/src/scripts/config');
-var datapackage;
 var fromRemoteJSON;
 var fs = require('fs');
-var nock = require('nock')
 var path = require('path');
-var registryListCSV;
-var tabularProfileJSON;
 var dataDir = path.join('.', 'tests', 'data');
+var datapackage = JSON.parse(fs.readFileSync(path.join(dataDir, 'datapackage.json')).toString());
+var nock = require('nock');
 var jtsInfer = require('json-table-schema').infer;
 var sinon = require('sinon');
 var url = require('url');
@@ -27,56 +24,55 @@ describe('DataPackagist core', function() {
   this.timeout(25000);
 
   before(function(done) {
-    fs.readFile(path.join(dataDir, 'registry-list.json'), function(error, data) {
-      registryListCSV = data.toString();
+    var corsProxyURL = url.parse(config.corsProxyURL(
+      'http://datahub.io/api/action/package_show?id=population-number-by-governorate-age-group-and-gender-2010-2014'
+    ));
 
-      fs.readFile(path.join(dataDir, 'datapackage-profile.json'), function(error, profileData) {
-        datapackageProfileJSON = JSON.parse(profileData.toString());
+    var registryListCSV = fs.readFileSync(path.join(dataDir, 'registry-list.json')).toString();
 
-        fs.readFile(path.join(dataDir, 'tabular-profile.json'), function(error, data) {
-          var remoteURL = 'http://datahub.io/api/action/package_show?id=population-number-by-governorate-age-group-and-gender-2010-2014';
-          var corsProxyURL = url.parse(config.corsProxyURL(remoteURL));
-          tabularProfileJSON = data.toString();
+    nock('https://rawgit.com')
+      .persist()
+      .get('/dataprotocols/registry/master/registry.csv')
+      .reply(200, registryListCSV, {'access-control-allow-origin': '*'});
 
-          fs.readFile(path.join(dataDir, 'tabular-profile.json'), function(error, data) {
-            fromRemoteJSON = data.toString();
+    // Use this csv as resource file in some test cases
+    nock(config.corsProxyURL(''))
+      .persist()
+      .get('/https://rawgit.com/dataprotocols/registry/master/registry.csv')
+      .reply(200, registryListCSV, {'access-control-allow-origin': '*'});
 
-            nock('https://rawgit.com')
-              .persist()
-              .get('/dataprotocols/registry/master/registry.csv')
-              .reply(200, registryListCSV, {'access-control-allow-origin': '*'});
+    nock('https://rawgit.com')
+      .persist()
+      .get('/dataprotocols/schemas/master/data-package.json')
 
-            // Use this csv as resource file in some test cases
-            nock(config.corsProxyURL(''))
-              .persist()
-              .get('/https://rawgit.com/dataprotocols/registry/master/registry.csv')
-              .reply(200, registryListCSV, {'access-control-allow-origin': '*'});
+      .reply(
+        200,
+        JSON.parse(fs.readFileSync(path.join(dataDir, 'datapackage-profile.json')).toString()),
+        {'access-control-allow-origin': '*'}
+      );
 
-            nock('https://rawgit.com')
-              .persist()
-              .get('/dataprotocols/schemas/master/data-package.json')
-              .reply(200, datapackageProfileJSON, {'access-control-allow-origin': '*'});
+    nock('https://rawgit.com')
+      .persist()
+      .get('/dataprotocols/schemas/master/tabular-data-package.json')
 
-            nock('https://rawgit.com')
-              .persist()
-              .get('/dataprotocols/schemas/master/tabular-data-package.json')
-              .reply(200, tabularProfileJSON, {'access-control-allow-origin': '*'});
+      .reply(
+        200,
+        fs.readFileSync(path.join(dataDir, 'tabular-profile.json')).toString(),
+        {'access-control-allow-origin': '*'}
+      );
 
-            nock([corsProxyURL.protocol, corsProxyURL.hostname].join('//'))
-              .persist()
-              .get(corsProxyURL.path)
-              .reply(200, fromRemoteJSON, {'access-control-allow-origin': '*'});
+    nock([corsProxyURL.protocol, corsProxyURL.hostname].join('//'))
+      .persist()
+      .get(corsProxyURL.path)
 
-            fs.readFile(path.join(dataDir, 'datapackage.json'), function(error, data) {
-              datapackage = JSON.parse(data.toString());
+      .reply(
+        200,
+        fs.readFileSync(path.join(dataDir, 'from-remote.json')).toString(),
+        {'access-control-allow-origin': '*'}
+      );
 
-              // run the server
-              app.listen(3000, function() { done(); });
-            });
-          });
-        });
-      });
-    });
+    // run the server
+    app.listen(3000, function() { done(); });
   });
 
   describe('Ensure essential form interactions', function() {
