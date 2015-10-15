@@ -15,7 +15,7 @@ var url = require('url');
 process.env.NODE_ENV = 'test';
 Browser.localhost('127.0.0.1', 3000);
 
-describe('DataPackagist core', function() {
+describe('UI interactions', function() {
   var browser = new Browser({maxWait: 30000});
 
   // ensure we have time for request to reoslve, etc.
@@ -73,7 +73,11 @@ describe('DataPackagist core', function() {
     app.listen(3000, function() { done(); });
   });
 
-  require('./form')(browser);
-  require('./resource-file')(browser);
-  require('./from-remote')(browser);
+  require('./ui/form')(browser);
+  require('./ui/resource-file')(browser);
+  require('./ui/from-remote')(browser);
+});
+
+describe('Backend routes', function() {
+  require('./resource-upload');
 });

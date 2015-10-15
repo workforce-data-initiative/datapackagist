@@ -6,6 +6,7 @@ var fileManager = new (require('../tabularfilemanager'))({maxSize: config.maxCSV
 module.exports = function(request, response) {
   var params = request.query;
 
+
   // Uploaded file path in /tmp/ or URL passed in query string
   fileManager.loadFile(_.result(request.file, 'path') || request.params[0], {
     // Strict validation of passed params
