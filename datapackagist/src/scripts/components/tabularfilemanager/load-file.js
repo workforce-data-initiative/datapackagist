@@ -6,6 +6,9 @@ var fromBlob = require('./from-blob');
 // Read file from local fs
 var fromFile = require('./from-file');
 
+// Read data from string
+var fromString = require('./from-string');
+
 // Read data directly from URL
 var fromURL = require('./from-url');
 
