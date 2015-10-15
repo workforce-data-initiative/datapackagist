@@ -22,8 +22,8 @@ function infer(data) { return JSONSchema.infer(data[0], _.rest(data)); }
   @param {object} options — {isURL: <true if file was downloaded from URL>, <noSchemaInfer>: Boolean, noValidation: <Boolean>}
 */
 module.exports = function(file, options) {
-  var noSchemaInfer = _.result(options, 'noSchemaInfer');
-  var noValidation = _.result(options, 'noValidation');
+  var noSchemaInfer = _.result(options, 'noSchemaInfer') === true;
+  var noValidation = _.result(options, 'noValidation') === true;
   this.emit('parse-started');
 
   return new Promise((function(resolve, reject) {

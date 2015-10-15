@@ -12,9 +12,13 @@ var fromURL = require('./from-url');
 var fs = require('fs');
 var validator = require('validator');
 
-module.exports = function(path) {
+module.exports = function(path, callOptions) {
   var displayedPath;
   var isURL;
+
+  // Allow options applied during method call along with object init options
+  var options = _.extend(this.options || {}, callOptions);
+
   var that = this;
 
   return (new Promise(function(resolve, reject) {
@@ -41,7 +45,7 @@ module.exports = function(path) {
       return false;
     }
 
-    method.call(that, path, that.options).then(resolve);
+    method.call(that, path, options).then(resolve);
   }))
     .catch(function(error) { console.log(error); })
 
@@ -51,6 +55,6 @@ module.exports = function(path) {
         content: result.data,
         path: displayedPath || path,
         size: result.size
-      }, _.extend(this.options, {isURL: isURL}));
+      }, _.extend(options, {isURL: isURL}));
     });
 }
