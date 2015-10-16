@@ -47,7 +47,11 @@ DataUploadView = backbone.BaseView.extend({
         .setCallbacks({
           'submit-file': (function(file) {
             this.addRow(file.name);
-            editor.getDataSource(editor.rows.length - 1, {blob: file}).then(this.hideLoading);
+
+            editor.getDataSource(
+              editor.rows.length - 1,
+              {blob: file.slice(0, _.min([file.size, config.maxCSVSize]))}
+            ).then(this.hideLoading);
           }).bind(this),
 
           // Reuse resource editor method when upload resource from URL
