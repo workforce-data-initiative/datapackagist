@@ -4,7 +4,7 @@
 [![Travis Build Status](https://travis-ci.org/frictionlessdata/datapackagist.svg?branch=master)](https://travis-ci.org/frictionlessdata/datapackagist)
 [![Coveralls](http://img.shields.io/coveralls/frictionlessdata/datapackagist.svg?branch=master)](https://coveralls.io/r/frictionlessdata/datapackagist?branch=master)
 
-A web app for creating, editing and validating Data Packages.
+A web app for creating, editing and validating ETP Participant Data Packages.
 
 Data Packagist allows you to:
 
@@ -26,7 +26,7 @@ Use it at: http://datapackagist.okfnlabs.org/
 
 #### Overview
 
-DataPackagist is a web app that allows you to create and edit Data Packages via a simple and intuitive web form. You can start from scratch, upload an existing `datapackage.json`, or even access DataPackagist via the CKAN and DKAN integration, to get started.
+DataPackagist is a web app that allows you to create and edit Training Provider Data Packages via a simple and intuitive web form. You can start from scratch, upload an existing `datapackage.json`, or even access DataPackagist via a database integration, to get started.
 
 To use the app, you don't need to know the technical details of what a `datapackage.json` file looks like, or why it looks like it does. You only need to know:
 
@@ -66,9 +66,9 @@ The steps are as follows:
 5. When you are done, click "Download Data Package" to save your changes to your local machine.
 6. Take the newly saved `datapackage.json` file and replace your previous one with it.
 
-##### Using DataPackagist via a link from CKAN or DKAN
+##### Using DataPackagist via a link
 
-In this scenario, you may be viewing or managing datasets on CKAN or DKAN, and need to create or edit a Data Package from a dataset.
+In this scenario, you may be viewing or managing datasets on a dataportal or database, and need to create or edit a Data Package from a dataset.
 
 The steps are as follows:
 
