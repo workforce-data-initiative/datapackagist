@@ -25,15 +25,6 @@
 <!--[if lt IE 10]>
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
-
-<div class="fixed-ok-panel">
-  <div id="ok-panel" class="closed">
-    <iframe src="http://assets.okfn.org/themes/okfn/okf-panel.html" scrolling="no"></iframe>
-  </div>
-
-  <a class="ok-ribbon" href="https://okfn.org/"><img src="http://okfnlabs.org/ok-panel/assets/images/ok-ribbon.png" alt="Open Knowledge"></a>
-</div>
-
 <section id="application">
 
   <!-- start navigation -->
@@ -80,18 +71,18 @@
       </div>
 
       <div class="container">
-        <h2 class="col-xs-12">1. Select an existing datapackage.json</h2>
+        <h2 class="col-xs-12">1. Select a CSV file</h2>
         <div class="col-sm-9">
-          <p>If you want to edit an existing Data package descriptor file, add it here.</p>
-          <p id="step1-no-file-selected"><i class="glyphicon glyphicon-remove text-danger margin-right-4"></i> No datapackage.json selected</p>
+          <p>Select a CSV file that contains your participant data.</p>
+          <p id="step1-no-file-selected"><i class="glyphicon glyphicon-remove text-danger margin-right-4"></i> No file selected</p>
           <p id="step1-selected-file"><i class="glyphicon glyphicon-ok text-success margin-right-4"></i><span></span></p>
         </div>
         <div class="col-sm-3" id="upload-existing-datapackage">
-          <button type="button" id="upload-data-package" class="col-xs-12 btn btn-success btn-lg upload-btn__txt pull-right">Select</button>
+          <button type="button" id="upload-csv" onclick="$('[data-id=upload-data-file]').click()" href="javascript:void(0);" class="col-xs-12 btn btn-success btn-lg upload-btn__txt pull-right">Select</button>
         </div>
       </div>
 
-      <div class="container">
+<!--      <div class="container">
         <h2 class="col-xs-12">2. Choose a Data Package Profile</h2>
         <div class="col-sm-9">
           <p>
@@ -109,20 +100,14 @@
             <select data-id="list-container" class="form-control list-container col-xs-12"></select>
           </div>
         </div>
-      </div>
+      </div> -->
 
 
       <div class="container">
-        <h2 class="col-xs-12">3. Edit the Data Package</h2>
+        <h2 class="col-xs-12">2. Identify the columns of your CSV</h2>
         <div class="col-xs-12">
           <p>
-            Use the form below to edit your Data Package. You can also
-            <a id="download-data-package2" href="" download="datapackage.json" target="_blank">download</a> or
-            <a onclick="$('#descriptor #validate-form').click()" href="javascript:void(0);">validate</a>
-            the Data Package,
-            <a onclick="$('[data-id=upload-data-file]').click()" href="javascript:void(0);">add resources</a> (data files), or
-            <a onclick="$('#descriptor #validate-resources').click()" href="javascript:void(0);">check the validity of the current resources</a>
-            in the package.
+            Use the form below to provide information about your Data Package.
           </p>
         </div>
       </div>
