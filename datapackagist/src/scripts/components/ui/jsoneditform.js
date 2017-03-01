@@ -43,20 +43,6 @@ JSONEditorView.prototype.init = _.wrap(JSONEditorView.prototype.init, function(i
       }
     }).bind(this)));
 
-    // Collapse editor and add empty item if it has no value
-    _.each($('[data-schemapath^="root."]:has(.json-editor-btn-collapse)', this.element), function(E) {
-      var editor = this.getEditor($(E).data('schemapath'));
-      var isEmpty = _.isEmpty(editor.getValue());
-
-
-      // Empty array data should have one empty item
-      if(_.contains(['resources'], $(E).data('schemapath').replace('root.', '')) && !editor.rows.length)
-        editor.addRow();
-
-      if(isEmpty && !editor.collapsed)
-        $(editor.toggle_button).trigger('click');
-    }, this);
-
     // Looks like previous loop is somehow async
     setTimeout((function() { $('#json-code').prop('hidden', false); }).bind(this), 300);
 
