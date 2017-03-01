@@ -37,27 +37,28 @@
           },
           "url": {
             "$ref": "definitions.json#/define/url",
-            "propertyOrder": 50
+            "propertyOrder": 50,
+            "options": { "hidden": true }
           },
           "path": {
             "$ref": "definitions.json#/define/path",
-            "propertyOrder": 60
-          },
-          "data": {
-            "$ref": "definitions.json#/define/data",
-            "propertyOrder": 70
+            "propertyOrder": 60,
+            "options": { "hidden": true }
           },
           "format": {
             "$ref": "definitions.json#/define/format",
-            "propertyOrder": 80
+            "propertyOrder": 80,
+            "options": { "hidden": true }
           },
           "mediatype": {
             "$ref": "definitions.json#/define/mediatype",
-            "propertyOrder": 90
+            "propertyOrder": 90,
+            "options": { "hidden": true }
           },
           "encoding": {
             "$ref": "definitions.json#/define/encoding",
-            "propertyOrder": 100
+            "propertyOrder": 100,
+            "options": { "hidden": true }
           },
           "bytes": {
             "$ref": "definitions.json#/define/bytes",
@@ -92,8 +93,7 @@
         },
         "anyOf": [
           { "title": "url required", "required": ["url"] },
-          { "title": "path required", "required": ["path"] },
-          { "title": "data required", "required": ["data"] }
+          { "title": "path required", "required": ["path"] }
         ],
         "required": [ "schema" ]
       }

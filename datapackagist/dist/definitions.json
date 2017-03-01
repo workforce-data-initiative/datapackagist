@@ -60,7 +60,8 @@
                     },
                     "format": {
                       "type": "string",
-                      "propertyOrder": 50
+                      "propertyOrder": 50,
+                      "options": { "hidden": true }
                     }
                   }
               }
