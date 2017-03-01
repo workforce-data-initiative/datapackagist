@@ -91,10 +91,6 @@
             "propertyOrder": 200
           }
         },
-        "anyOf": [
-          { "title": "url required", "required": ["url"] },
-          { "title": "path required", "required": ["path"] }
-        ],
         "required": [ "schema" ]
       }
     },
