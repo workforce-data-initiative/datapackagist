@@ -74,7 +74,7 @@ DataUploadView = backbone.BaseView.extend({
   render: function() {
     this.$el
       .append(
-        $(window.APP.layout.descriptorEdit.layout.form.theme.getButton('Upload data file', '', 'Upload data file'))
+        $(window.APP.layout.descriptorEdit.layout.form.theme.getButton('Select data file', '', 'Select data file'))
           .attr('data-id', 'upload-data-file')
       )
 
