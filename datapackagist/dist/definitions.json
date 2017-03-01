@@ -19,7 +19,8 @@
                     "title": {
                       "type": "string",
                       "enum": [
-                        "Participant ID",
+                        "Participant ID (National)",
+                        "Participant ID (State DL)",
                         "Participant Name",
                         "Participant Name (First)",
                         "Participant Name (Last)",
