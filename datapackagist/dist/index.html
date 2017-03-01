@@ -69,49 +69,6 @@
       <div class="container">
         <h1 class="col-xs-12" id="step1-title"><span class="unset">Get Started</span><span class="isset">Your Data Package</span></h1>
       </div>
-
-      <div class="container">
-        <h2 class="col-xs-12">1. Select a CSV file</h2>
-        <div class="col-sm-9">
-          <p>Select a CSV file that contains your participant data.</p>
-          <p id="step1-no-file-selected"><i class="glyphicon glyphicon-remove text-danger margin-right-4"></i> No file selected</p>
-          <p id="step1-selected-file"><i class="glyphicon glyphicon-ok text-success margin-right-4"></i><span></span></p>
-        </div>
-        <div class="col-sm-3" id="upload-existing-datapackage">
-          <button type="button" id="upload-csv" onclick="$('[data-id=upload-data-file]').click()" href="javascript:void(0);" class="col-xs-12 btn btn-success btn-lg upload-btn__txt pull-right">Select</button>
-        </div>
-      </div>
-
-<!--      <div class="container">
-        <h2 class="col-xs-12">2. Choose a Data Package Profile</h2>
-        <div class="col-sm-9">
-          <p>
-            A Data Package Profile describes specific constraints.
-            If unsure, leave the profile on the &ldquo;base&rdquo; default.
-          </p>
-          <p id="step2-profile-info">
-            The <span id="step2-profile-name"></span> Profile is selected.
-            <a id="step2-specification" target="_blank" href="javascript:void(0);">Read the specs</a>.
-          </p>
-        </div>
-        <div class="col-sm-3 registry-list-container" id="registry-list">
-          <div class="form-group pull-right">
-            <label id="select-profile" class="control-label col-xs-12">Select Profile</label>
-            <select data-id="list-container" class="form-control list-container col-xs-12"></select>
-          </div>
-        </div>
-      </div> -->
-
-
-      <div class="container">
-        <h2 class="col-xs-12">2. Identify the columns of your CSV</h2>
-        <div class="col-xs-12">
-          <p>
-            Use the form below to provide information about your Data Package.
-          </p>
-        </div>
-      </div>
-
     </div>
 
     <div class="container">
@@ -124,11 +81,11 @@
         </div>
 
         <div class="col-md-7" id="validate-buttons">
-          <a id="download-data-package" href="" download="datapackage.json" target="_blank" class="col-xs-3 disabled btn btn-sm btn-info">Download</a>
           <span class="col-xs-1"></span>
-          <button type="button" id="validate-form" class="col-xs-3 btn btn-sm btn-info">Validate</button>
+          <button type="button" id="validate-form" class="col-xs-4 btn btn-sm btn-info">Validate</button>
+          <span class="col-xs-2"></span>
+          <a id="download-data-package" href="" download="datapackage.json" target="_blank" class="col-xs-4 disabled btn btn-sm btn-info">Upload</a>
           <span class="col-xs-1"></span>
-          <button type="button" id="validate-resources" class="col-xs-4 btn btn-sm btn-info">Validate Resources</button>
         </div>
       </div>
 
