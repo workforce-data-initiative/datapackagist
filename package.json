@@ -68,10 +68,6 @@
     "watchify": "^3.2.1",
     "zombie": "^4.0.13"
   },
-  "engines": {
-    "iojs": "v2.3.x",
-    "npm": "v2.13.x"
-  },
   "scripts": {
     "build": "gulp",
     "test": "mocha tests --recursive --harmony --reporter spec",
