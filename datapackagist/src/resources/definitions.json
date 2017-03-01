@@ -68,12 +68,23 @@
           }
     },
     "name": {
-      "title": "Training Provider Name",
+      "title": "Name",
       "description": "",
       "type": "string",
       "pattern": ""
     },
     "title": {
+      "title": "Title",
+      "description": "",
+      "type": "string"
+    },
+    "etp_name": {
+      "title": "Training Provider Name",
+      "description": "",
+      "type": "string",
+      "pattern": ""
+    },
+    "etp_id": {
       "title": "Training Provider ID",
       "description": "",
       "type": "string"

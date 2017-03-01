@@ -3,14 +3,14 @@
   "title": "Tabular Data Package",
   "description": "Tabular Data Package is a simple specification for data access and delivery of tabular data.",
   "type": "object",
-  "required": [ "name", "resources" ],
+  "required": [ "resources" ],
   "properties": {
-    "name": {
-      "$ref": "definitions.json#/define/name",
+    "etp_name": {
+      "$ref": "definitions.json#/define/etp_name",
       "propertyOrder": 10
     },
-    "title": {
-      "$ref": "definitions.json#/define/title",
+    "etp_id": {
+      "$ref": "definitions.json#/define/etp_id",
       "propertyOrder": 20
     },
     "resources": {
@@ -34,10 +34,6 @@
             "$ref": "definitions.json#/define/description",
             "propertyOrder": 30,
             "format": "textarea"
-          },
-          "schema": {
-            "$ref": "definitions.json#/define/schema",
-            "propertyOrder": 40
           },
           "url": {
             "$ref": "definitions.json#/define/url",
@@ -88,6 +84,10 @@
             "description": "The license under which the resource is published.",
             "propertyOrder": 150,
             "options": { "hidden": true }
+          },
+          "schema": {
+            "$ref": "definitions.json#/define/schema",
+            "propertyOrder": 200
           }
         },
         "anyOf": [
@@ -97,10 +97,6 @@
         ],
         "required": [ "schema" ]
       }
-    },
-    "keywords": {
-      "$ref": "definitions.json#/define/keywords",
-      "propertyOrder": 100
     },
     "sources": {
       "$ref": "definitions.json#/define/sources",
