@@ -134,10 +134,5 @@ gulp.task('styles', function () {
     .pipe(gulp.dest(distDir));
 });
 
-gulp.task('resources', function() {
-  return gulp.src(resourcesDir + '/*')
-    .pipe(gulp.dest(distDir));
-});
-
-gulp.task('default', ['vendor-scripts', 'app-scripts', 'styles', 'resources']);
-gulp.task('dev', ['vendor-scripts', 'app-scripts-watched', 'styles', 'resources']);
+gulp.task('default', ['vendor-scripts', 'app-scripts', 'styles']);
+gulp.task('dev', ['vendor-scripts', 'app-scripts-watched', 'styles']);
