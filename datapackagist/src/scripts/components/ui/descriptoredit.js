@@ -32,19 +32,11 @@ function getDefinitionUrl(schemaUrl) {
 // Upload data file and populate .resource array with item
 DataUploadView = backbone.BaseView.extend({
 
-  addResource: function (resourceInfo) { // MB!!: Called upon loading the CSV
+  addResource: function (resourceInfo) {
     var editor;
     editor = window.APP.layout.descriptorEdit.layout.form.getEditor('root.resources');
 
     editor.add(resourceInfo.info, {schema: resourceInfo.info.schema, data: resourceInfo.data});
-    
-    // Make some of the fields readonly:
-    _.each($('[name$="][path]"]'), function(E) {
-      $(E).attr('readonly', 'readonly');
-    }, this);
-    _.each($('[name$="][url]"]'), function(E) {
-      $(E).attr('readonly', 'readonly');
-    }, this);
   },
 
   events: {
