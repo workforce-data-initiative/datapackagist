@@ -1,0 +1,2 @@
+id,title,schema,schema_path,specification
+tabular,Tabular Data Package,tabular-data-package.json,tabular-data-package.json,http://dataprotocols.org/tabular-data-package/

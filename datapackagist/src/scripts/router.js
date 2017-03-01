@@ -2,7 +2,7 @@ var _ = require('underscore');
 var backbone = require('backbone');
 var config = require('./config');
 var dpFromRemote = require('datapackage-from-remote');
-var registry = require('datapackage-registry');
+var registry = require('./datapackage-registry.js');
 var Promise = require('bluebird');
 
 // Application state changed here

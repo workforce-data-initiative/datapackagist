@@ -23,6 +23,7 @@ var srcDir = baseDir + '/src';
 var distDir = baseDir + '/dist';
 var stylesDir = srcDir + '/styles';
 var scriptsDir = srcDir + '/scripts';
+var resourcesDir = srcDir + '/resources';
 
 var frontendDependencies = _.chain(require('./package.json').dependencies)
   .omit(backendDependencies)
@@ -133,6 +134,10 @@ gulp.task('styles', function () {
     .pipe(gulp.dest(distDir));
 });
 
+gulp.task('resources', function() {
+  return gulp.src(resourcesDir + '/*')
+    .pipe(gulp.dest(distDir));
+});
 
-gulp.task('default', ['vendor-scripts', 'app-scripts', 'styles']);
-gulp.task('dev', ['vendor-scripts', 'app-scripts-watched', 'styles']);
+gulp.task('default', ['vendor-scripts', 'app-scripts', 'styles', 'resources']);
+gulp.task('dev', ['vendor-scripts', 'app-scripts-watched', 'styles', 'resources']);
