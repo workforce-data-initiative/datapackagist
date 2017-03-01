@@ -41,9 +41,7 @@
     "resolve": "^1.1.6",
     "superagent-bluebird-promise": "^2.0.2",
     "underscore": "^1.8.3",
-    "validator": "^3.41.2"
-  },
-  "devDependencies": {
+    "validator": "^3.41.2",
     "browser-sync": "^2.7.1",
     "browserify": "^10.2.0",
     "browserify-handlebars": "^1.0.0",
@@ -73,6 +71,7 @@
     "test": "mocha tests --recursive --harmony --reporter spec",
     "start": "node datapackagist",
     "start_dev": "gulp dev & node datapackagist",
+    "postinstall": "gulp default",
     "deploy": "git push heroku master"
   },
   "author": {
