@@ -4,7 +4,7 @@ var historyApiFallback = require('connect-history-api-fallback');
 var browserify = require('browserify');
 var browserifyHandlebars = require('browserify-handlebars');
 var depcheck = require('depcheck');
-var watchify = require('watchify');
+// var watchify = require('watchify');
 var resolve = require('resolve');
 var glob = require('glob').sync;
 var source = require('vinyl-source-stream');
@@ -89,17 +89,17 @@ gulp.task('app-scripts', function() {
 });
 
 
-gulp.task('app-scripts-watched', function() {
-  var watcher  = watchify(bundler);
-
-
-  watcher
-    .on('update', function() {
-      scriptPipeline(watcher.bundle(), 'app.min.js');
-    });
-
-  return scriptPipeline(watcher.bundle(), 'app.min.js');
-});
+// gulp.task('app-scripts-watched', function() {
+//   var watcher  = watchify(bundler);
+//
+//
+//   watcher
+//     .on('update', function() {
+//       scriptPipeline(watcher.bundle(), 'app.min.js');
+//     });
+//
+//   return scriptPipeline(watcher.bundle(), 'app.min.js');
+// });
 
 
 gulp.task('check-deps', function () {
