@@ -145,6 +145,18 @@ module.exports = {
         }
       },
 
+      'click #view-code': function() {
+          _.each($('.json-code-container'), function(E) {
+            if ( $(E).css('visibility') == 'hidden' ) {
+              $(E).css('visibility','visible');
+              $('#view-code').text('Hide code');
+            } else {
+              $(E).css('visibility','hidden');
+              $('#view-code').text('View code');
+            }
+          });
+      },
+
       'click #validate-form': function() {
         window.APP.layout.download2.reset(this.layout.form.getCleanValue(),
           this.layout.form.schema).activate();

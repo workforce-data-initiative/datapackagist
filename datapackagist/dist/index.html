@@ -76,18 +76,18 @@
       <div class="container" id="descriptor">
         <div data-id="form-container" class="col-md-7"></div>
 
-        <div class="json-code-container col-md-5">
+        <div class="json-code-container col-md-5" style="visibility: hidden;">
           <pre><code id="json-code" class="json"></code></pre>
         </div>
 
         <div class="col-md-7" id="validate-buttons">
-          <button type="button" id="validate-form" class="col-xs-3 btn btn-sm btn-info">Validate</button>
+          <button type="button" id="validate-form" class="col-xs-2 btn btn-sm btn-info">Validate</button>
+          <span class="col-xs-2"></span>
+          <button type="button" id="view-code" class="col-xs-2 btn btn-sm btn-info">View code</button>
           <span class="col-xs-1"></span>
-          <button type="button" id="validate-form" class="col-xs-3 btn btn-sm btn-info">Validate</button>
+          <a id="download-data-package" href="" download="datapackage.json" target="_blank" class="col-xs-2 disabled btn btn-sm btn-info">Download</a>
           <span class="col-xs-1"></span>
-          <a id="download-data-package" href="" download="datapackage.json" target="_blank" class="col-xs-3 disabled btn btn-sm btn-info">Download</a>
-          <span class="col-xs-1"></span>
-          <a id="download-data-package" href="" download="datapackage.json" target="_blank" class="col-xs-3 disabled btn btn-sm btn-info">Upload</a>
+          <a id="download-data-package" href="" download="datapackage.json" target="_blank" class="col-xs-2 disabled btn btn-sm btn-info">Upload</a>
         </div>
       </div>
 
