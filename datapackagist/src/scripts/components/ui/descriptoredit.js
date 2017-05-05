@@ -34,8 +34,8 @@ DataUploadView = backbone.BaseView.extend({
 
   addResource: function (resourceInfo) {
     var editor;
-    editor = window.APP.layout.descriptorEdit.layout.form.getEditor('root.resources');
-
+    editor = window.APP.layout.descriptorEdit.layout.form.getEditor('root.schema');
+    debugger;
     editor.add(resourceInfo.info, {schema: resourceInfo.info.schema, data: resourceInfo.data});
 
     // Make the names readonly — they're automatically populated
@@ -55,6 +55,7 @@ DataUploadView = backbone.BaseView.extend({
             return new Promise( (function(resolve, reject) {
               CSV.getResourceFromFile(file, {preview: config.maxCSVRows}).then(
                   (function (resourceInfo) {
+                    resourceInfo.source = file;
                     this.addResource(resourceInfo);
                     resolve();
                   }).bind(this));
@@ -66,6 +67,7 @@ DataUploadView = backbone.BaseView.extend({
             return new Promise( (function(resolve, reject) {
               CSV.getResourceFromUrl(config.corsProxyURL(url), {preview: config.maxCSVRows}).then(
                   (function (resourceInfo) {
+                    resourceInfo.source = url;
                     this.addResource(resourceInfo);
                     resolve();
                   }).bind(this));
@@ -133,16 +135,8 @@ module.exports = {
       },
 
       'click #validate-resources': function() {
-        var rows = this.layout.form.getEditor('root.resources').rows;
-        if (rows.length > 0) {
-          window.APP.layout.validationResultList.validateResources(rows);
-        } else {
-          window.APP.layout.notificationDialog
-            .setTitle('No Resources to Validate')
-            .setMessage('The Data Package currently has no resources that ' +
-              'can be validated. Please add some and try again.')
-            .activate();
-        }
+        var root = this.layout.form.getEditor('root.schema');
+        window.APP.layout.validationResultList.validateResources([root]);
       },
 
       'click #view-code': function() {
@@ -239,9 +233,8 @@ module.exports = {
 
         this.layout.form.on('ready', (function() {
           // There is no any good way to bind events to custom button or even add cutsom button
-          $(this.layout.form.getEditor('root.resources').container)
+          $(this.layout.form.getEditor('root.schema').container)
             .children('h3').append(this.layout.uploadData.el);
-
           // After `ready` event fired, editor fire `change` event regarding to the initial changes
           this.layout.form.on('change', _.after(2, (function() {
             window.APP.layout.download2.reset(this.layout.form.getCleanValue(), schema).activate();
@@ -264,8 +257,8 @@ module.exports = {
           refs = getRefsMapping(schema, JSON.parse(definitions.text) );
           if(this.layout.form) {
             Promise.map(
-              this.layout.form.getEditor('root.resources').rows,
-              (function(R, I) { return this.layout.form.getEditor('root.resources').getDataSource(I) }).bind(this)
+              [this.layout.form.getEditor('root.schema')],
+              (function(R, I) { return this.layout.form.getEditor('root.schema')}).bind(this)
               )
               .then((function(R) {
                 var formData = this.layout.form.getCleanValue();

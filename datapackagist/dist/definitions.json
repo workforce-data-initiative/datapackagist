@@ -3,10 +3,11 @@
   "define": {
     "schema": {
       "title": "Schema",
-      "description": "The JSON Table Schema that describes of this resource.",
+      "description": "The table schema that describes each column of this resource.",
       "type": "object",
           "properties": {
             "fields": {
+              "title": "Columns",
               "type": "array",
               "minItems": 0,
               "items": {

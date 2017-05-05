@@ -3,7 +3,6 @@
   "title": "Tabular Data Package",
   "description": "Tabular Data Package is a simple specification for data access and delivery of tabular data.",
   "type": "object",
-  "required": [ "resources" ],
   "properties": {
     "etp_name": {
       "$ref": "definitions.json#/define/etp_name",
@@ -13,101 +12,65 @@
       "$ref": "definitions.json#/define/etp_id",
       "propertyOrder": 20
     },
-    "resources": {
-      "title": "Resources",
-      "description": "The data resources that this package describes.",
-      "type": "array",
-      "propertyOrder": 90,
-      "minItems": 0,
-      "items": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "$ref": "definitions.json#/define/name",
-            "propertyOrder": 10
-          },
-          "title": {
-            "$ref": "definitions.json#/define/title",
-            "propertyOrder": 20
-          },
-          "description": {
-            "$ref": "definitions.json#/define/description",
-            "propertyOrder": 30,
-            "format": "textarea"
-          },
-          "url": {
-            "$ref": "definitions.json#/define/url",
-            "propertyOrder": 50,
-            "options": { "hidden": true }
-          },
-          "path": {
-            "$ref": "definitions.json#/define/path",
-            "propertyOrder": 60,
-            "options": { "hidden": true }
-          },
-          "format": {
-            "$ref": "definitions.json#/define/format",
-            "propertyOrder": 80,
-            "options": { "hidden": true }
-          },
-          "mediatype": {
-            "$ref": "definitions.json#/define/mediatype",
-            "propertyOrder": 90,
-            "options": { "hidden": true }
-          },
-          "encoding": {
-            "$ref": "definitions.json#/define/encoding",
-            "propertyOrder": 100,
-            "options": { "hidden": true }
-          },
-          "bytes": {
-            "$ref": "definitions.json#/define/bytes",
-            "propertyOrder": 110,
-            "options": { "hidden": true }
-          },
-          "hash": {
-            "$ref": "definitions.json#/define/hash",
-            "propertyOrder": 120,
-            "options": { "hidden": true }
-          },
-          "dialect": {
-            "$ref": "definitions.json#/define/dialect",
-            "propertyOrder": 130,
-            "options": { "hidden": true }
-          },
-          "sources": {
-            "$ref": "definitions.json#/define/sources",
-            "propertyOrder": 140,
-            "options": { "hidden": true }
-          },
-          "license": {
-            "$ref": "definitions.json#/define/license",
-            "description": "The license under which the resource is published.",
-            "propertyOrder": 150,
-            "options": { "hidden": true }
-          },
-          "schema": {
-            "$ref": "definitions.json#/define/schema",
-            "propertyOrder": 200
-          }
-        },
-        "required": [ "schema" ]
-      }
+    "description": {
+      "$ref": "definitions.json#/define/description",
+      "propertyOrder": 30,
+      "format": "textarea"
     },
-    "sources": {
-      "$ref": "definitions.json#/define/sources",
+    "url": {
+      "$ref": "definitions.json#/define/url",
+      "propertyOrder": 50,
+      "options": { "hidden": true }
+    },
+    "path": {
+      "$ref": "definitions.json#/define/path",
+      "propertyOrder": 60,
+      "options": { "hidden": true }
+    },
+    "format": {
+      "$ref": "definitions.json#/define/format",
+      "propertyOrder": 80,
+      "options": { "hidden": true }
+    },
+    "mediatype": {
+      "$ref": "definitions.json#/define/mediatype",
+      "propertyOrder": 90,
+      "options": { "hidden": true }
+    },
+    "encoding": {
+      "$ref": "definitions.json#/define/encoding",
+      "propertyOrder": 100,
+      "options": { "hidden": true }
+    },
+    "bytes": {
+      "$ref": "definitions.json#/define/bytes",
       "propertyOrder": 110,
       "options": { "hidden": true }
     },
-    "image": {
-      "$ref": "definitions.json#/define/image",
+    "hash": {
+      "$ref": "definitions.json#/define/hash",
       "propertyOrder": 120,
       "options": { "hidden": true }
     },
-    "dataDependencies": {
-      "$ref": "definitions.json#/define/dataDependencies",
+    "dialect": {
+      "$ref": "definitions.json#/define/dialect",
+      "propertyOrder": 130,
+      "options": { "hidden": true }
+    },
+    "sources": {
+      "$ref": "definitions.json#/define/sources",
       "propertyOrder": 140,
       "options": { "hidden": true }
+    },
+    "license": {
+      "$ref": "definitions.json#/define/license",
+      "description": "The license under which the resource is published.",
+      "propertyOrder": 150,
+      "options": { "hidden": true }
+    },
+    "schema": {
+      "$ref": "definitions.json#/define/schema",
+      "propertyOrder": 200
     }
   }
 }
