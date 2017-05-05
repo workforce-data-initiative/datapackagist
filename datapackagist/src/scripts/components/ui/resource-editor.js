@@ -11,10 +11,7 @@ var CSV = require('./csv-resource');
 jsonEditor.JSONEditorView.defaults.editors.schema = JSONEditor.defaults.editors.array.extend({
   add: function(rowValue, dataSource) {
     // If there is single empty row — apply
-    if(_.isEmpty(this.jsoneditor.getCleanValue().schema) && !_.isEmpty(this.rows))
-      this.rows[0].setValue(rowValue, true);
-    else
-      this.addRow(rowValue, true);
+    this.setValue(rowValue, true);
 
     // Save data source in the form
     _.last(this.rows).dataSource = dataSource;
@@ -86,7 +83,7 @@ jsonEditor.JSONEditorView.defaults.editors.schema = JSONEditor.defaults.editors.
 // This will make it run before any other ones
 jsonEditor.JSONEditorView.defaults.resolvers.unshift(function(schema) {
 
-  if(schema.type === 'object' && schema.title === 'Schema') {
+  if(schema.type === 'array' && schema.title === 'Schema') {
     return 'schema';
   }
 

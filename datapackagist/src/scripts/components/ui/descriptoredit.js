@@ -35,8 +35,8 @@ DataUploadView = backbone.BaseView.extend({
   addResource: function (resourceInfo) {
     var editor;
     editor = window.APP.layout.descriptorEdit.layout.form.getEditor('root.schema');
-    debugger;
-    editor.add(resourceInfo.info, {schema: resourceInfo.info.schema, data: resourceInfo.data});
+
+    editor.add(resourceInfo.info.schema.fields, {schema: resourceInfo.info.schema, data: resourceInfo.data});
 
     // Make the names readonly — they're automatically populated
     _.each($('[name$="][name]"]'), function(E) {

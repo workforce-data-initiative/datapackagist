@@ -4,71 +4,65 @@
     "schema": {
       "title": "Schema",
       "description": "The table schema that describes each column of this resource.",
-      "type": "object",
-          "properties": {
-            "fields": {
-              "title": "Columns",
-              "type": "array",
-              "minItems": 0,
-              "items": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string",
-                      "propertyOrder": 10
-                    },
-                    "title": {
-                      "type": "string",
-                      "enum": [
-                        "Participant ID (National)",
-                        "Participant ID (State DL)",
-                        "Participant Name",
-                        "Participant Name (First)",
-                        "Participant Name (Last)",
-                        "Participant is WIOA",
-                        "Program Name",
-                        "Program ID",
-                        "Program Outcome",
-                        "Date of Entry",
-                        "Date of Exit",
-                        "Type of Exit",
-                        "Did Obtain Credential",
-                        "Other"
-                      ],
-                      "propertyOrder": 20
-                    },
-                    "description": {
-                      "type": "string",
-                      "propertyOrder": 30
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "string",
-                        "number",
-                        "integer",
-                        "boolean",
-                        "object",
-                        "array",
-                        "datetime",
-                        "date",
-                        "time",
-                        "duration",
-                        "geopoint",
-                        "geojson",
-                        "any"
-                      ],
-                      "propertyOrder": 40
-                    },
-                    "format": {
-                      "type": "string",
-                      "propertyOrder": 50,
-                      "options": { "hidden": true }
-                    }
-                  }
-              }
-            }
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+              "type": "string",
+              "propertyOrder": 10
+          },
+          "title": {
+            "type": "string",
+            "enum": [
+                "Participant ID (National)",
+                "Participant ID (State DL)",
+                "Participant Name",
+                "Participant Name (First)",
+                "Participant Name (Last)",
+                "Participant is WIOA",
+                "Program Name",
+                "Program ID",
+                "Program Outcome",
+                "Date of Entry",
+                "Date of Exit",
+                "Type of Exit",
+                "Did Obtain Credential",
+                "Other"
+            ],
+            "propertyOrder": 20
+          },
+          "description": {
+            "type": "string",
+            "propertyOrder": 30
+          },
+          "type": {
+              "type": "string",
+              "enum": [
+                "string",
+                "number",
+                "integer",
+                "boolean",
+                "object",
+                "array",
+                "datetime",
+                "date",
+                "time",
+                "duration",
+                "geopoint",
+                "geojson",
+                "any"
+              ],
+              "propertyOrder": 40
+          },
+          "format": {
+            "type": "string",
+            "propertyOrder": 50,
+            "options": { "hidden": true }
           }
+        }
+      }
     },
     "name": {
       "title": "Name",
