@@ -8,13 +8,10 @@ var CSV = require('./csv-resource');
 
 
 // Custom editor for managing resources rows
-jsonEditor.JSONEditorView.defaults.editors.resources = JSONEditor.defaults.editors.array.extend({
+jsonEditor.JSONEditorView.defaults.editors.schema = JSONEditor.defaults.editors.array.extend({
   add: function(rowValue, dataSource) {
     // If there is single empty row — apply
-    if(_.isEmpty(this.jsoneditor.getCleanValue().resources) && !_.isEmpty(this.rows))
-      this.rows[0].setValue(rowValue, true);
-    else
-      this.addRow(rowValue, true);
+    this.setValue(rowValue, true);
 
     // Save data source in the form
     _.last(this.rows).dataSource = dataSource;
@@ -86,8 +83,8 @@ jsonEditor.JSONEditorView.defaults.editors.resources = JSONEditor.defaults.edito
 // This will make it run before any other ones
 jsonEditor.JSONEditorView.defaults.resolvers.unshift(function(schema) {
 
-  if(schema.type === 'array' && schema.title === 'Resources') {
-    return 'resources';
+  if(schema.type === 'array' && schema.title === 'Schema') {
+    return 'schema';
   }
 
   // If no valid editor is returned, the next resolver function will be used

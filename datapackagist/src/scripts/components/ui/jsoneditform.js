@@ -31,16 +31,7 @@ JSONEditorView.prototype.init = _.wrap(JSONEditorView.prototype.init, function(i
 
     // After `ready` event fired, editor fire `change` event regarding to the initial changes
     this.on('change', _.after(3, (function() {
-      var resources = this.getEditor('root.resources');
-      var resourcesLength = _.result(resources.rows, 'length');
-
-
       this.changed = true;
-
-      // Expand resources section if there are any resources, collapse if row is empty
-      if(resourcesLength && resources.collapsed || !resourcesLength && !resources.collapsed) {
-        $(resources.toggle_button).trigger('click');
-      }
     }).bind(this)));
 
     // Looks like previous loop is somehow async
